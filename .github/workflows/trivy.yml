@@ -11,15 +11,28 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
+<<<<<<< HEAD
     - cron: '0 6 * * 1'  # Segunda-feira às 6h
+=======
+    - cron: '25 2 * * 3'
+>>>>>>> 37e99b0088ddc9b371564f0edf9c6dda685355cb
 
 permissions:
   contents: read
   security-events: write
 
 jobs:
+<<<<<<< HEAD
   trivy:
     name: Run Trivy vulnerability scanner
+=======
+  build:
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+    name: Build
+>>>>>>> 37e99b0088ddc9b371564f0edf9c6dda685355cb
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -41,8 +54,3 @@ jobs:
         sarif_file: 'trivy-results.sarif'
           output: 'trivy-results.sarif'
           severity: 'CRITICAL,HIGH'
-
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: 'trivy-results.sarif'
